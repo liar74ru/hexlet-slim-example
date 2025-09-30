@@ -1,0 +1,93 @@
+<h1>Users</h1>
+
+<?php if (isset($flash['success'][0])): ?>
+    <div class="flash-success">
+      <?= htmlspecialchars($flash['success'][0]) ?>
+    </div>
+<?php endif; ?>
+
+<a href="<?= $router->urlFor('users.new') ?>" class="btn btn-create">Create New User</a>
+<hr>
+<form action="<?= $router->urlFor('users.index') ?>" method="get" class="search-form">
+  <input type="search" name="term" value="<?= htmlspecialchars($term) ?>" placeholder="Search users..." />
+  <input type="submit" value="Поиск" class="btn">
+</form>
+<ul class="users-list">
+    <?php foreach ($users as $user): ?>
+        <li>
+            <a href="<?= $router->urlFor('users.id', ['id' => $user['id']]) ?>" class="user-link">
+                <?= htmlspecialchars($user['name']) ?>
+            </a>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+<style>
+.flash-success {
+    color: #1976d2;
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    max-width: 400px;
+}
+.btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 4px;
+    background: #1976d2;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn:hover {
+    background: #125ea2;
+}
+.btn-create {
+    margin-bottom: 16px;
+    background: #388e3c;
+}
+.btn-create:hover {
+    background: #256029;
+}
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    max-width: 400px;
+}
+.search-form input[type="search"] {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 1em;
+}
+.users-list {
+    list-style: none;
+    padding: 0;
+    max-width: 400px;
+}
+.users-list li {
+    margin-bottom: 8px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    padding: 8px 12px;
+    transition: background 0.2s;
+}
+.users-list li:hover {
+    background: #e3f2fd;
+}
+.user-link {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: bold;
+}
+.user-link:hover {
+    text-decoration: underline;
+}
+</style>

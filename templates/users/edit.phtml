@@ -1,0 +1,94 @@
+<h1>EDIT USER</h1>
+<hr>
+<style>
+.form-box {
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 24px 28px 18px 28px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #0001;
+    font-family: Arial, sans-serif;
+}
+.form-box label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.form-box input[type="text"],
+.form-box input[type="email"] {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+.form-box .error {
+    color: #c00;
+    background: #fff0f0;
+    border: 1px solid #fbb;
+    border-radius: 3px;
+    padding: 4px 8px;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+}
+.form-box .btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 4px;
+    background: #1976d2;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background 0.2s;
+}
+.form-box .btn:hover {
+    background: #125ea2;
+}
+.form-box .btn-delete {
+    background: #c62828;
+}
+.form-box .btn-delete:hover {
+    background: #a31515;
+}
+.btn-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.btn-row form {
+    margin: 0;
+    display: inline;
+}
+</style>
+
+<div class="form-box">
+  <form action="<?= $router->urlFor('users.update', ['id' => $user['id']]) ?>" method="post" style="margin-bottom: 0;">
+    <input type="hidden" name="_METHOD" value="PATCH">
+    <label>
+      NickName:
+      <input type="text" name="user[name]" value="<?= htmlspecialchars($user['name']) ?>">
+      <?php if (isset($errors['name'])): ?>
+        <div class="error"><?= $errors['name'] ?></div>
+      <?php endif ?>
+    </label>
+    <label>
+      Email:
+      <input type="email" required name="user[email]" value="<?= htmlspecialchars($user['email']) ?>">
+      <?php if (isset($errors['email'])): ?>
+        <div class="error"><?= $errors['email'] ?></div>
+      <?php endif ?>
+    </label>
+    <div class="btn-row">
+      <input type="submit" value="Update" class="btn">
+      </form>
+      <form action="<?= $router->urlFor('users.delete', ['id' => $user['id']]) ?>" method="post" style="display:inline;">
+        <input type="hidden" name="_METHOD" value="DELETE">
+        <input type="submit" value="Delete User" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this user?');">
+      </form>
+    </div>
+</div>
